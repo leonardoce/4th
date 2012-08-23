@@ -1,0 +1,57 @@
+\ Costanti                                                   
+1 constant sdl_init_timer                                      
+16 constant sdl_init_audio                                     
+32 constant sdl_init_video                                     
+256 constant sdl_init_cdrom                                    
+512 constant sdl_init_joystick                                 
+0 1- constant sdl_init_everything                              
+
+\ SDL_Surface                                              
+begin-structure sdl_surface                                    
+  field: ss.flags                                              
+  field: ss.format                                             
+  field: ss.width                                              
+  field: ss.height                                             
+  field: ss.pitch                                              
+  field: ss.pixels                                             
+end-structure                                                  
+
+\ SDL_PixelFormat                                          
+begin-structure SDL_PixelFormat                                
+  field: pf.palette                                            
+  cfield: pf.bitpp                                             
+  cfield: pf.bytepp                                            
+end-structure                                                  
+
+\ Configurazione e stato                                     
+1024 constant width                                            
+768 constant height                                            
+32 constant depth                                              
+
+0 value surface                                                
+0 value pitch                                                  
+0 value pixels                                                 
+
+\ --Interfaccia Basso Livello                                  
+: sdlname oslinux if s" libsdl.so" else s" sdl.dll" then ;     
+sdlname defdll: sdl                                            
+current-lib: sdl                                               
+
+entrypoint" SDL_Init" 1 func: sdl_init                         
+entrypoint" SDL_SetVideoMode" 4 func: sdl_setvideomode         
+entrypoint" SDL_Quit" 0 vfunc: sdl_quit                        
+
+\ --Memoria video                                              
+: bytepp@ surface ss.format cmemcell@                          
+  pf.bytepp cmem@ ;                                            
+: pitch@ surface ss.pitch cmem@                                
+  surface ss.pitch 1+ cmem@ 8 lshift + ;                       
+
+  \ --Inizializzazione                                           
+: init-check 0 1- = if                                         
+  abort" Errore inizializzazione SDL" then ;                   
+: init sdl_init_video sdl_init init-check                      
+  width height depth 0 sdl_setvideomode                        
+  dup 0= if abort" Errore impostazione video" then             
+  to surface                                                   
+  pitch@ to pitch ;                                            

@@ -1,0 +1,32 @@
+\ Definizione delle date                                       
+begin-structure data                                           
+1 cells +field giorno                                          
+1 cells +field mese                                            
+1 cells +field anno                                            
+end-structure                                                  
+                                                               
+                                                               
+                                                               
+                                                               
+                                                               
+                                                               
+                                                               
+                                                               
+                                                               
+                                                               
+\ Manipolazione delle date                                     
+: stampa-gg ( d -- ) giorno @  <# # # #> type ;                
+: stampa-mm ( d -- ) mese @  <# # # #> type ;                  
+: stampa-aaaa ( d -- ) anno @  <# # # # # #> type ;            
+: stampa-data ( d -- )                                         
+  dup stampa-gg ." /"                                          
+  dup stampa-mm ." /"                                          
+  stampa-aaaa ;                                                
+                                                               
+                                                               
+                                                               
+                                                               
+                                                               
+                                                               
+                                                               
+                                                               
