@@ -41,6 +41,7 @@ To generate turnkey applications you must:
 1. Load your application in the interactive environment and create a
 `main` word that will be called by the application.
 
+```
     C> forth
     4Forth 0.1 (06/2009)
     Code Space: 2434
@@ -52,16 +53,20 @@ To generate turnkey applications you must:
      
     4> : main ." turnkey application example!" cr ;
      ok
+```
 
 2. Generate a forth image (`forth.image`) with the word `saveimage`:
 
+```
     4> saveimage
      ok
     4>  
+```
 
 3. Execute `forthc` that will embed your image in a C file and will
 compile that file with the forth runtime:
 
+```
     C> forthc forth.image myexample
     genero: myexample.c
     eseguo: gcc -o myexample -DOS_WINDOWS myexample.c -L. -l4th
@@ -69,11 +74,14 @@ compile that file with the forth runtime:
 
     C> dir myexample.exe
     23/08/12  15.29           128.014 myexample.exe
+```
      
 4. You are ready to run:
 
+```
     C> myexample.exe
     turnkey application example!
+```
 
 As you see a turnkey application with all the forth libraries and the
 VM is something like 128K, which is not terribly big in this days.
