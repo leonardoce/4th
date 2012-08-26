@@ -203,9 +203,9 @@ int InputStream_Read(InputStream *self, void *buffer, int bufferLen) {
 }
 //@-node:leonardoce.20090629082550.211:Read
 //@+node:leonardoce.20090629082550.212:ReadInt
-int InputStream_ReadInt(InputStream *self) {
+long InputStream_ReadInt(InputStream *self) {
     int buffer;
-    InputStream_Read(self, &buffer, sizeof(int));
+    InputStream_Read(self, &buffer, sizeof(long));
     return buffer;
 }
 //@nonl

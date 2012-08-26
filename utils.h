@@ -43,7 +43,7 @@ struct InputStream {
 
 InputStream *InputStream_NewForBuffer(void *buffer, int bufferLen);
 InputStream *InputStream_NewForFile(const char *nomeFile);
-int InputStream_ReadInt(InputStream *self);
+long InputStream_ReadInt(InputStream *self);
 int InputStream_Read(InputStream *self, void *buffer, int bufferLen);
 void InputStream_Delete(InputStream *self);
 int InputStream_Eof(InputStream *self);

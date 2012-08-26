@@ -7,9 +7,13 @@
 #include "quattro_parser.h"
 #include "utils.h"
 
-typedef int ForthInstructionAddress;
-typedef int ForthDataAddress;
-typedef int ForthCell;
+typedef long ForthInstructionAddress;
+typedef long ForthDataAddress;
+typedef long ForthCell;
+
+#define CELL_PRINTF_FORMAT "%li "
+
+#define longtobool(x) (((x)!=0)?1:0)
 
 #define FORTHCODEADDRESS_NULL 0
 #define FORTHDATAADDRESS_NULL 0

@@ -35,8 +35,8 @@ ForthWordList *ForthWordList_NewFromStream(InputStream *in) {
   wordCount = InputStream_ReadInt(in);
   for(i=0; i<wordCount; i++) {
     int wordLen;
-    int isImmediate;
-    int addr; 
+    long isImmediate;
+    long addr; 
     char *wordName;
 
     isImmediate = InputStream_ReadInt(in);
@@ -96,7 +96,7 @@ const char *ForthWordList_ReverseFind(ForthWordList* self, ForthInstructionAddre
   int i;
 
   for(i=DynamicVector_Count(self->wordNames)-1;i>=0;i--) {
-    int tempAddr = (int) DynamicVector_Get(self->wordAddrs, i);
+    ForthInstructionAddress tempAddr = (ForthInstructionAddress) DynamicVector_Get(self->wordAddrs, i);
     if(tempAddr==addr) {
       const char *wordName = (const char *)DynamicVector_Get(self->wordNames, i);
       return wordName;
@@ -135,7 +135,7 @@ int ForthWordList_IsImmediate(ForthWordList* self, const char *wordName) {
     void *addr = DynamicVector_Get(self->wordNames, i);
     if(stricmp(addr, wordName)==0) {
       if(i<DynamicVector_Count(self->wordIsImmediate)) {
-        return (int)DynamicVector_Get(self->wordIsImmediate, i);
+        return longtobool(DynamicVector_Get(self->wordIsImmediate, i));
       } else {
         return 0;
       }
@@ -154,8 +154,8 @@ void ForthWordList_SaveOnFile(ForthWordList* self, OutputStream *out) {
   OutputStream_WriteInt(out, wordCount);
   for(i=0; i<wordCount; i++) {
     int wordLen = strlen((char *)DynamicVector_Get(self->wordNames, i));
-    int isImmediate = (int)DynamicVector_Get(self->wordIsImmediate, i);
-    int addr = (int) DynamicVector_Get(self->wordAddrs, i);
+    int isImmediate = longtobool(DynamicVector_Get(self->wordIsImmediate, i));
+    int addr = longtobool(DynamicVector_Get(self->wordAddrs, i));
 
     OutputStream_WriteInt(out, isImmediate);
     OutputStream_WriteInt(out, addr);
@@ -444,7 +444,7 @@ void ForthVm_DumpDataStack(ForthVm *self) {
   int i;
 
   for(i=0;i<self->dataStackPtr;i++) {
-    printf("%i ", self->dataStack[i]);
+    printf(CELL_PRINTF_FORMAT, self->dataStack[i]);
   }
   printf("<sp ");
 }
@@ -456,7 +456,8 @@ void ForthVm_DumpRetStack(ForthVm *self) {
 
   printf("<ReturnStack>\n");
   for(i=0;i<self->retStackPtr;i++) {
-    printf("  <StackItem id=\"%i\" value=\"%i\"/>\n", i, self->retStack[i]);
+    printf("  <StackItem id=\"%i\" value=\"", i);
+    printf(CELL_PRINTF_FORMAT "\"/>\n", self->retStack[i]);
   }
   printf("</ReturnStack>\n");
 }
@@ -487,16 +488,16 @@ void ForthVm_Run(ForthVm* self) {
     if(shouldTrace) {
       printf("(r: ");
       for(i=0;i<self->retStackPtr;i++) {
-        printf("%i ", self->retStack[i]);
+        printf(CELL_PRINTF_FORMAT, self->retStack[i]);
       }
       printf(") ");
 
       printf("(d: ");
       for(i=0;i<self->dataStackPtr;i++) {
-        printf("%i ", self->dataStack[i]);
+        printf(CELL_PRINTF_FORMAT, self->dataStack[i]);
       }
       printf(") ");
-      printf("#%i ", self->instructionPtr);
+      printf(CELL_PRINTF_FORMAT, self->instructionPtr);
     }
 
     self->instructionPtr++;
