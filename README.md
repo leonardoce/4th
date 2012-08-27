@@ -3,7 +3,8 @@
 
 This is a forth system based on a VM-architecture. The bytecode
 interpreter can be compiled in Windows and in Linux with a simple ANSI
-C compiler. The system in designed to be simple and solid.
+C compiler. The system in designed to be simple and solid. The system
+can be compiled under 32 or 64 bit systems.
 
 The system has primitives to call external code, which must be located
 in a external shared library. You can also add additional primitives.
@@ -15,8 +16,9 @@ application.
 How to compile
 ==============
 
-Under Linux use the shell script `compila.sh` and under Windows you
-can use `compila.bat`.
+Under Linux use the shell script `compile.sh` and under Windows you
+can use `compile.bat`. If you want to compile a 64 bit Forth you
+should use the `compile_64.bat` or `compile_64.sh` script.
 
 You will find a `forthconsole` executable which is a Forth REPL that
 you can use to develop in a interactive way. 
