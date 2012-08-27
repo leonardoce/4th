@@ -12,6 +12,7 @@
 #define MIN(x,y) ((x)<(y)?(x):(y))
 #define MAX(x,y) ((x)>(y)?(x):(y))
 
+#include "config.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -43,7 +44,7 @@ struct InputStream {
 
 InputStream *InputStream_NewForBuffer(void *buffer, int bufferLen);
 InputStream *InputStream_NewForFile(const char *nomeFile);
-long InputStream_ReadInt(InputStream *self);
+ForthCell InputStream_ReadInt(InputStream *self);
 int InputStream_Read(InputStream *self, void *buffer, int bufferLen);
 void InputStream_Delete(InputStream *self);
 int InputStream_Eof(InputStream *self);
@@ -58,7 +59,7 @@ struct OutputStream {
 
 OutputStream *OutputStream_NewForFile(const char *fileName);
 void OutputStream_Write(OutputStream *self, void *buffer, int len);
-void OutputStream_WriteInt(OutputStream *self, int i);
+void OutputStream_WriteInt(OutputStream *self, ForthCell i);
 int OutputStream_Status(OutputStream *self);
 void OutputStream_Delete(OutputStream *self);
 void OutputStream_WriteString(OutputStream *self, const char *str);

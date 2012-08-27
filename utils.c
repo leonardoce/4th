@@ -203,9 +203,9 @@ int InputStream_Read(InputStream *self, void *buffer, int bufferLen) {
 }
 //@-node:leonardoce.20090629082550.211:Read
 //@+node:leonardoce.20090629082550.212:ReadInt
-long InputStream_ReadInt(InputStream *self) {
+ForthCell InputStream_ReadInt(InputStream *self) {
     int buffer;
-    InputStream_Read(self, &buffer, sizeof(long));
+    InputStream_Read(self, &buffer, sizeof(ForthCell));
     return buffer;
 }
 //@nonl
@@ -256,8 +256,8 @@ void OutputStream_WriteString(OutputStream *self, const char *str) {
 //@nonl
 //@-node:leonardoce.20090629082550.224:WriteString
 //@+node:leonardoce.20090629082550.202:NewHeadline
-void OutputStream_WriteInt(OutputStream *self, int i) {
-    OutputStream_Write(self, &i, sizeof(int));
+void OutputStream_WriteInt(OutputStream *self, ForthCell i) {
+    OutputStream_Write(self, &i, sizeof(ForthCell));
 }
 //@nonl
 //@-node:leonardoce.20090629082550.202:NewHeadline
