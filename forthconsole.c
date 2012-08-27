@@ -8,37 +8,8 @@
 #include "quattro_vm.h"
 #include "utils.h"
 
-//@<<linea comando>>
-//@+node:leonardoce.20090622083507.11:<<linea comando>>
-int readCommandLine(char *buffer, int maxSize) {
-    int i = 0;
-    int realMax = maxSize-1;
-
-    while(1) {
-        if(i>realMax) {
-            break;
-        }
-
-        buffer[i]=fgetc(stdin);
-
-        if(buffer[i]==EOF) {
-            return 0;
-        }
-        if(buffer[i]==13 || buffer[i]==10) {
-            break;
-        }
-        i++;
-    }
-
-    buffer[i]='\x0';
-    return 1;
-}
-//@-node:leonardoce.20090622083507.11:<<linea comando>>
-//@nl
-
 int main(int argc, char **argv) {
   ForthVm *vm = NULL;
-  char maxLine[1024];
   char kernelFile[1024];
   char startupFile[1024];
   int displayPrompt = 1;
@@ -98,18 +69,13 @@ int main(int argc, char **argv) {
   //@nl
   //@  <<informazioni benvenuto>>
   //@+node:leonardoce.20090629082550.233:<<informazioni benvenuto>>
-  printf("%s\n", LEOFORTH_VERSION);
-  printf("Code Space: %i\n", vm->hereCodePtr);
-  printf("Data Space: %i\n", vm->hereDataPtr);
-  printf("----\n\n");
-
-  printf("kernel %s\n", kernelFile);
+  printf("using kernel %s\n", kernelFile);
   //@-node:leonardoce.20090629082550.233:<<informazioni benvenuto>>
   //@nl
   //@  <<file startup>>
   //@+node:leonardoce.20090630084051.23:<<file startup>>
   if(strlen(startupFile)!=0) {
-    printf("carico %s\n", startupFile);
+    printf("loading %s\n", startupFile);
 
     fstr = ForthStream_NewForFile(startupFile);
     ForthVm_SetParser(vm, fstr);
@@ -120,30 +86,14 @@ int main(int argc, char **argv) {
   //@-node:leonardoce.20090630084051.23:<<file startup>>
   //@nl
 
-  fstr = ForthStream_NewForBuffer("<line>", "");
+  fstr = ForthStream_NewForBuffer("<line>", "internal-repl");
   ForthVm_SetParser(vm, fstr);
 
   printf("\n\n");
 
   while(TRUE) {
-    if(displayPrompt) {
-      if(vm->internalState == VM_COMPILER) {
-        printf("(compiler) ");
-      }
-
-      printf("4> ");
-      fflush(stdout);
-    }
-
-    memset(maxLine, 0, 1024);
-    if(!readCommandLine(maxLine, 1024)) {
-      break;
-    }
-
-    ForthStream_ResetForBuffer(fstr, "<line>", maxLine);
     vm->exitFlag=0;
     ForthVm_Feed(vm);
-
     ForthVm_Output(vm, " ok\n");
     fflush(stdout);
   }

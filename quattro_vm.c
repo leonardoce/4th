@@ -9,6 +9,7 @@
 #include "quattro_vm.h"
 #include "quattro_debug.h"
 #include "quattro_istruzioni.h"
+#include "quattro_istruzioni_repl.h"
 
 //@+others
 //@+node:leonardoce.20090629082550.3:New
@@ -355,6 +356,7 @@ void ForthVm_InitForthWordList(ForthVm *self) {
   ForthVm_RegisterNativeInstruction(self, "literal", Instruction_Literal);
   ForthVm_RegisterNativeInstruction(self, "state@", Instruction_StateFetch);
   ForthVm_RegisterNativeInstruction(self, "bye", Instruction_Bye);
+  ForthVm_RegisterNativeInstruction(self, "internal-repl", Instruction_Repl);
 
   ForthVm_RegistraIstruzioniAritmetiche(self);
   ForthVm_RegistraIstruzioniWordlist(self);
