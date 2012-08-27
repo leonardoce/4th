@@ -155,7 +155,7 @@ void ForthWordList_SaveOnFile(ForthWordList* self, OutputStream *out) {
   for(i=0; i<wordCount; i++) {
     int wordLen = strlen((char *)DynamicVector_Get(self->wordNames, i));
     int isImmediate = longtobool(DynamicVector_Get(self->wordIsImmediate, i));
-    ForthDataAddress addr = DynamicVector_Get(self->wordAddrs, i);
+    ForthDataAddress addr = (ForthDataAddress)DynamicVector_Get(self->wordAddrs, i);
 
     OutputStream_WriteInt(out, isImmediate);
     OutputStream_WriteInt(out, addr);
