@@ -65,12 +65,12 @@ int main(int argc, char **argv) {
           strcpy(startupFile, argv[i+1]);
       } else if(strcmp(argv[i],"--help")==0 || strcmp(argv[i],"-h")==0 || strcmp(argv[i],"-?")==0) {
           printf("%s\n", LEOFORTH_VERSION);
-          printf("Uso: %s [opzioni]\n\n", argv[0]);
-          printf("Opzioni: \n");
-          printf("--kernel <nomefile>   Utilizza il kernel specificato\n");
-          printf("--image <nomefile>    Carica l'immagine specificata\n");
-          printf("--exec <nomefile>     Esegue il file specificato\n");
-          printf("--help                Mostra questo messaggio\n");
+          printf("Use: %s [opts]\n\n", argv[0]);
+          printf("Options: \n");
+          printf("--kernel <nomefile>   Use the specified kernel\n");
+          printf("--image <nomefile>    Load an image\n");
+          printf("--exec <nomefile>     Execute a file\n");
+          printf("--help                This help message\n");
           printf("-?\n");
           printf("-h\n");
           printf("\n");
