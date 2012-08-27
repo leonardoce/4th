@@ -6,6 +6,7 @@ loadfile obj.4th
 loadfile gtk.4th
 loadfile glade.4th
 loadfile editor.4th
+loadfile ffi.4th
 
 only
 definitions
