@@ -14,7 +14,7 @@ C file and then linked to the runtime to generate a turnkey
 application.
 
 How to compile
-==============
+--------------
 
 Under Linux use the shell script `compile.sh` and under Windows you
 can use `compile.bat`. If you want to compile a 64 bit Forth you
@@ -23,20 +23,23 @@ should use the `compile_64.bat` or `compile_64.sh` script.
 You will find a `forthconsole` executable which is a Forth REPL that
 you can use to develop in a interactive way. 
 
+With the script `do_images.bat` you can generate a Forth REPL that 
+includes the full kernel.
+
 Examples
-========
+--------
 
 Under the `examples` directory you can find some example of what you
 can do with this Forth system.
 
 Editor support
-==============
+--------------
 
 There is a minimal editor support for editing Forth files under Emacs
 under the `emacs` directory.
 
 How to generate turnkey applications
-====================================
+------------------------------------
 
 To generate turnkey applications you must:
 
@@ -89,7 +92,7 @@ As you see a turnkey application with all the forth libraries and the
 VM is something like 128K, which is not terribly big in this days.
 
 License
-=======
+-------
 
 Copyright (c) 2012, Leonardo Cecchi
 All rights reserved.
